@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>An Introduction to Statistical Learning with Python - Course Summary</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        .book-meta {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        nav {
+            background: #34495e;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            background: #3498db;
+            transform: translateY(-2px);
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        .overview {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 3rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .overview h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .toc {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .toc h2 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .toc-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .toc-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .toc-item:hover {
+            transform: translateX(5px);
+        }
+
+        .toc-item a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .chapter {
+            margin-bottom: 4rem;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chapter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #3498db, #9b59b6, #e74c3c, #f39c12, #2ecc71);
+        }
+
+        .chapter:nth-child(odd) {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .chapter:nth-child(even) {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        .chapter h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .chapter-number {
+            background: #3498db;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .techniques {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .technique-card {
+            background: rgba(255,255,255,0.9);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .technique-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .technique-card h4 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .github-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #24292e 0%, #40465c 100%);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 25px;
+            margin: 1rem 0;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .github-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .github-link::before {
+            content: "📓 ";
+            margin-right: 0.5rem;
+        }
+
+        .key-concepts {
+            background: rgba(255,255,255,0.8);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .algorithms-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+        }
+
+        .algorithms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .algorithm-category {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .algorithm-category h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .algorithm-list {
+            list-style: none;
+        }
+
+        .algorithm-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .algorithm-list li::before {
+            content: "▶";
+            position: absolute;
+            left: 0;
+            color: #ffd700;
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #ffd700 0%, #ffd700 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 0.3em;
+            background-position: 0 88%;
+            transition: background-size 0.25s ease-in;
+        }
+
+        .highlight:hover {
+            background-size: 100% 88%;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            main {
+                padding: 1rem;
+            }
+            
+            .chapter h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3498db, #e74c3c);
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 0.5rem;
+        }
+
+        .code-snippet {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+            font-family: 'Courier New', monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>An Introduction to Statistical Learning</h1>
+                <p class="subtitle">with Applications in Python</p>
+                <div class="book-meta">
+                    <strong>Authors:</strong> Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani, Jonathan Taylor<br>
+                    <strong>Publisher:</strong> Springer (2023) | <strong>Course:</strong> Statistical Learning & Machine Learning
+                </div>
+            </div>
+        </header>
+
+        <nav>
+            <div class="nav-links">
+                <a href="#overview">Overview</a>
+                <a href="#toc">Contents</a>
+                <a href="#ch2">Statistical Learning</a>
+                <a href="#ch3">Linear Regression</a>
+                <a href="#ch4">Classification</a>
+                <a href="#ch5">Resampling</a>
+                <a href="#ch6">Regularization</a>
+                <a href="#ch8">Trees</a>
+                <a href="#ch9">SVM</a>
+                <a href="#ch12">Unsupervised</a>
+                <a href="#algorithms">Algorithms</a>
+            </div>
+        </nav>
+
+        <main>
+            <section id="overview" class="overview">
+                <h2>📚 Book Overview</h2>
+                <p>
+                    <strong>"An Introduction to Statistical Learning with Applications in Python"</strong> is a comprehensive guide to modern statistical learning methods and machine learning techniques. This book bridges the gap between theoretical concepts and practical implementation, making complex statistical methods accessible to students and practitioners. 
+                </p>
+                <p>
+                    The book emphasizes understanding the <em>why</em> behind statistical learning methods rather than just the <em>how</em>, providing intuitive explanations supported by mathematical rigor and real-world applications. With Python implementations using popular libraries like scikit-learn, pandas, and matplotlib, it serves as both a theoretical foundation and practical handbook for data science and machine learning.
+                </p>
+                <p>
+                    <strong>Key Features:</strong> Clear explanations, hands-on Python labs, real datasets, comprehensive coverage from linear methods to deep learning, and a perfect balance between theory and practice.
+                </p>
+            </section>
+
+            <section id="toc" class="toc">
+                <h2>📋 Table of Contents - Chapters Covered in Class</h2>
+                <div class="toc-list">
+                    <div class="toc-item">
+                        <a href="#ch2">Chapter 2: Statistical Learning</a>
+                        <p>Foundations, bias-variance tradeoff, model assessment</p>
+                    </div>
+                    <div class="toc-item">
+                        <a href="#ch3">Chapter 3: Linear Regression</a>
+                        <p>Simple & multiple regression, model selection</p>
+                    </div>
+                    <div class="toc-item">
+                        <a href="#ch4">Chapter 4: Classification</a>
+                        <p>Logistic regression, LDA, QDA, Naive Bayes</p>
+                    </div>
+                    <div class="toc-item">
+                        <a href="#ch5">Chapter 5: Resampling Methods</a>
+                        <p>Cross-validation, bootstrap, model selection</p>
+                    </div>
+                    <div class="toc-item">
+                        <a href="#ch6">Chapter 6: Linear Model Selection</a>
+                        <p>Ridge, Lasso, elastic net, dimension reduction</p>
+                    </div>
+                    <div class="toc-item">
+                        <a href="#ch8">Chapter 8: Tree-Based Methods</a>
+                        <p>Decision trees, random forests, boosting</p>
+                    </div>
+                    <div class="toc-item">
+                        <a href="#ch9">Chapter 9: Support Vector Machines</a>
+                        <p>Linear & non-linear SVM, kernel methods</p>
+                    </div>
+                    <div class="toc-item">
+                        <a href="#ch12">Chapter 12: Unsupervised Learning</a>
+                        <p>PCA, clustering, dimensionality reduction</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="ch2" class="chapter">
+                <h2><span class="chapter-number">2</span>Statistical Learning <span class="badge">Foundation</span></h2>
+                
+                <div class="key-concepts">
+                    <h3>🎯 Key Concepts</h3>
+                    <p><strong>Statistical Learning</strong> refers to a set of approaches for estimating f, where Y = f(X) + ε. The goal is to understand the relationship between inputs X and output Y for prediction or inference.</p>
+                </div>
+
+                <div class="techniques">
+                    <div class="technique-card">
+                        <h4>🔍 Supervised Learning</h4>
+                        <p>Learning with input-output pairs. Includes regression (continuous Y) and classification (categorical Y).</p>
+                    </div>
+                    <div class="technique-card">
+                        <h4>🧩 Unsupervised Learning</h4>
+                        <p>Learning patterns from input data without known outputs. Includes clustering and dimensionality reduction.</p>
+                    </div>
+                    <div class="technique-card">
+                        <h4>⚖️ Bias-Variance Tradeoff</h4>
+                        <p>Expected test MSE = Variance + Bias² + Irreducible Error. Fundamental concept in model complexity.</p>
+                    </div>
+                    <div class="technique-card">
+                        <h4>📊 Model Assessment</h4>
+                        <p>Training vs. test error, overfitting, underfitting, and the importance of generalization.</p>
+                    </div>
+                </div>
+
+                <div class="key-concepts">
+                    <h3>💡 Main Takeaways</h3>
+                    <ul>
+                        <li><span class="highlight">Prediction accuracy</span> and <span class="highlight">model interpretability</span> are often competing goals</li>
+                        <li>More flexible methods have higher variance but lower bias</li>
+                        <li>Test error is what matters for real-world performance</li>
+                        <li>No free lunch: no single method dominates across all problems</li>
+                    </ul>
+                </div>
+
+                <a href="https://github.com/vnsekambabaye/Data_Mining/blob/main/chapter2_statistical_learning.ipynb" class="github-link">
+                    View Chapter 2 Lab Notebook
+                </a>
+            </section>
+
+            <section id="ch3" class="chapter">
+                <h2><span class="chapter-number">3</span>Linear Regression <span class="badge">Regression</span></h2>
+                
+                <div class="key-concepts">
+                    <h3>🎯 Key Concepts</h3>
+                    <p><strong>Linear Regression</strong> assumes a linear relationship between predictors and response: Y = β₀ + β₁X₁ + ... + βₚXₚ + ε</p>
+                </div>
+
+                <div class="techniques">
+                    <div class="technique-card">
+                        <h4>📈 Simple Linear Regression</h4>
+                        <p>Y = β₀ + β₁X + ε. Least squares estimation, R², hypothesis testing.</p>
+                        <div class="code-snippet">from sklearn.linear_model import LinearRegression</div>
+                    </div>
+                    <div class="technique-card">
+                        <h4>📊 Multiple Linear Regression</h4>
+                        <p>Extension to multiple predictors. F-statistic, individual t-tests, multicollinearity.</p>
+                    </div>
+                    <div class="technique-card">
+                        <h4>🔄 Polynomial Regression</h4>
+                        <p>Non-linear relationships using polynomial terms. Still linear in parameters.</p>
+                    </div>
+                    <div class="technique-card">
+                        <h4>📋 Model Selection</h4>
+                        <p>Forward/backward selection, AIC, BIC, adjusted R². Choosing the right predictors.</p>
+                    </div>
+                </div>
+
+                <div class="key-concepts">
+                    <h3>💡 Main Takeaways</h3>
+                    <ul>
+                        <li><span class="highlight">Linearity assumption</span> is key but can be relaxed with transformations</li>
+                        <li>Correlation ≠ causation: regression shows association, not causality</li>
+                        <li>Outliers and leverage points can dramatically affect results</li>
+                        <li>Model diagnostics (residual plots) are crucial for validation</li>
+                    </ul>
+                </div>
+
+                <a href="https://github.com/vnsekambabaye/Data_Mining/blob/main/chapter3_linear_regression.ipynb" class="github-link">
+                    View Chapter 3 Lab Notebook
+                </a>
+            </section>
+
+            <section id="ch4" class="chapter">
+                <h2><span class="chapter-number">4</span>Classification <span class="badge">Classification</span></h2>
+                
+                <div class="key-concepts">
+                    <h3>🎯 Key Concepts</h3>
+                    <p><strong>Classification</strong> predicts qualitative responses. We estimate P(Y = k|X) for each class k and assign observations to the most likely class.</p>
+                </div>
+
+                <div class="techniques">
+                    <div class="technique-card">
+                        <h4>📊 Logistic Regression</h4>
+                        <p>Uses logistic function to model probabilities. Linear decision boundary, maximum likelihood estimation.</p>
+                        <div class="code-snippet">from sklearn.linear_model import LogisticRegression</div>
+                    </div>
+                    <div class="technique-card">
+                        <h4>📈 Linear Discriminant Analysis</h4>
+                        <p>Assumes Gaussian distributions with common covariance. Bayes' theorem, linear decision boundary.</p>
+                        <div class="code-snippet">from sklearn.discriminant_analysis import LinearDiscriminantAnalysis</div>
+                    </div>
+                    <div class="technique-card">
+                        <h4>🎨 Quadratic Discriminant Analysis</h4>
+                        <p>Relaxes common covariance assumption. Quadratic decision boundaries, more flexible than LDA.</p>
+                        <div class="code-snippet">from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis</div>
+                    </div>
+                    <div class="technique-card">
+                        <h4>🧠 Naive Bayes</h4>
+                        <p>Assumes feature independence. Simple, fast, works well with small datasets and text classification.</p>
+                        <div class="code-snippet">from sklearn.naive_bayes import GaussianNB</div>
+                    </div>
+                    <div class="technique-card">
+                        <h4>🎯 K-Nearest Neighbors</h4>
+                        <p>Non-parametric method. Classifies based on majority vote of k nearest neighbors.</p>
+                        <div class="code-snippet">from sklearn.neighbors import KNeighborsClassifier</div>
+                    </div>
+                </div>
+
+                <div class="key-concepts">
+                    <h3>💡 Main Takeaways</h3>
+                    <ul>
+                        <li><span class="highlight">Linear vs. quadratic</span> decision boundaries affect model flexibility</li>
+                        <li>LDA assumes equal covariance; QDA allows different covariances per class</li>
+                        <li>Logistic regression directly models P(Y=1|X) without distributional assumptions</li>
+                        <li>Classification error rate and ROC curves measure performance</li>
+                    </ul>
+                </div>
+
+                <a href="https://github.com/vnsekambabaye/Data_Mining/blob/main/chapter4_classification.ipynb" class="github-link">
+                    View Chapter 4 Lab Notebook
+                </a>
+            </section>
+
+            <section id="ch5" class="chapter">
+                <h2><span class="chapter-number">5</span>Resampling Methods <span class="badge">Validation</span></h2>
+                
+                <div class="key-concepts">
+                    <h3>🎯 Key Concepts</h3>
+                    <p><strong>Resampling</strong> methods repeatedly draw samples from training data to obtain additional information about fitted models, particularly for model assessment and selection.</p>
+                </div>
+
+                <div class="techniques">
+                    <div class="technique-card">
+                        <h4>✂️ Cross-Validation</h4>
+                        <p>LOOCV, k-fold CV. Estimates test error using training data. Gold standard for model selection.</p>
+                        <div class="code-snippet">from sklearn.model_selection import cross_val_score</div>
+                    </div>
+                    <div class="technique-card">
+                        <h4>🎲 Bootstrap</h4>
+                        <p>Resampling with replacement. Estimates sampling distribution and standard errors of any statistic.</p>
+                        <div class="code-snippet">from sklearn.utils import resample</div>
+                    </div>
+                    <div class="technique-card">
+                        <h4>🔄 Validation Set Approach</h4>
+                        <p>Simple train/validation split. Fast but high variance due to random split.</p>
+                        <div class="code-snippet">from sklearn.model_selection import train_test_split</div>
+                    </div>
+                    <div class="technique-card">
+                        <h4>📊 Model Selection</h4>
+                        <p>Using CV to choose complexity, regularization parameters, or between different models.</p>
+                    </div>
+                </div>
+
+                <div class="key-concepts">
+                    <h3>💡 Main Takeaways</h3>
+                    <ul>
+                        <li><span class="highlight">Cross-validation</span> provides more reliable error estimates than single validation set</li>
+                        <li>k=5 or k=10 fold CV offers good bias-variance tradeoff</li>
+                        <li>Bootstrap is incredibly versatile for uncertainty quantification</li>
+                        <li>Proper validation prevents overfitting and overly optimistic performance estimates</li>
+                    </ul>
+                </div>
+
+                <a href="https://github.com/vnsekambabaye/Data_Mining/blob/main/chapter5_resampling.ipynb" class="github-link">
+                    View Chapter 5 Lab Notebook
+                </a>
+            </section>
+
+            <section id="ch6" class="chapter">
+                <h2><span class="chapter-number">6</span>Linear Model Selection and Regularization <span class="badge">Regularization</span></h2>
+                
+                <div class="key-concepts">
+                    <h3>🎯 Key Concepts</h3>
+                    <p><strong>Regularization</strong> methods constrain or shrink coefficient estimates, reducing variance at the cost of introducing bias. Essential for high-dimensional data where p ≈ n or p > n.</p>
+                </div>
+
+                <div class="techniques">
+                    <div class="technique-card">
+                        <h4>🏔️ Ridge Regression</h4>
+                        <p>L2 penalty: minimizes RSS + λΣβⱼ². Shrinks coefficients toward zero but keeps all variables.</p>
+                        <div class="code-snippet">from sklearn.linear_model import Ridge</div>
+                    </div>
+                    <div class="technique-card">
+                        <h4>🎯 Lasso Regression</h4>
+                        <p>L1 penalty: minimizes RSS + λΣ|βⱼ|. Performs variable selection by setting coefficients to zero.</p>
+                        <div class="code-snippet">from sklearn.linear_model import Lasso</div>
+                    </div>
+                    <div class="technique-card">
+                        <h4>🔗 Elastic Net</h4>
+                        <p>Combines L1 and L2 penalties. Balances ridge and lasso, good for correlated predictors.</p>
+                        <div class="code-snippet">from sklearn.linear_model import ElasticNet</div>
+                    </div>
+                    <div class="technique-card">
+                        <h4>📉 Principal Components Regression</h4>
+                        <p>Uses PCA for dimension reduction, then applies linear regression on principal components.</p>
+                        <div class="code-snippet">from sklearn.decomposition import PCA</div>
+                    </div>
+                    <div class="technique-card">
+                        <h4>📊 Partial Least Squares</h4>
+                        <p>Supervised dimension reduction. Finds directions that explain both X variance and X-Y relationship.</p>
+                        <div class="code-snippet">from sklearn.cross_decomposition import PLSRegression</div>
+                    </div>
+                </div>
+
+                <div class="key-concepts">
+                    <h3>💡 Main Takeaways</h3>
+                    <ul>
+                        <li><span class="highlight">Ridge regression</span> is better when most predictors are useful</li>
+                        <li><span class="highlight">Lasso</span> is preferable when only subset of predictors are useful</li>
+                        <li>Regularization parameter λ controls bias-variance tradeoff</li>
+                        <li>Cross-validation is essential for tuning λ</li>
+                        <li>Standardization is crucial before applying regularization</li>
+                    </ul>
+                </div>
+
+                <a href="https://github.com/vnsekambabaye/Data_Mining/blob/main/chapter6_regularization.ipynb" class="github-link">
+                    View Chapter 6 Lab Notebook
+                </a>
+            </section>
+
+            <section id="ch8" class="chapter">
+                <h2><span class="chapter-number">8</span>Tree-Based Methods <span class="badge">Trees</span></h2>
+                
+                <div class="key-concepts">
+                    <h3>🎯 Key Concepts</h3>
+                    <p><strong>Tree-based methods</strong> partition the feature space into simple regions and predict using the mean (regression) or mode (classification) of training observations in each region.</p>
+                </div>
+
+                <div class="techniques">
+                    <div class="technique-card">
+                        <h4>🌳 Decision Trees</h4>
+                        <p>Recursive binary splitting. Easy to interpret but prone to overfitting. Uses entropy, Gini, or MSE for splits.</p>
+                        <div class="code-snippet">from sklearn.tree import DecisionTreeClassifier</div>
+                    </div>
+                    <div class="technique-card">
+                        <h4>🌲 Bagging</h4>
+                        <p>Bootstrap aggregating. Reduces variance by averaging predictions from multiple trees trained on bootstrap samples.</p>
+                        <div class="code-snippet">from sklearn.ensemble import BaggingClassifier</div>
+                    </div>
+                    <div class="technique-card">
+                        <h4>🎄 Random Forests</h4>
+                        <p>Bagging + random feature selection. Decorrelates trees, reduces overfitting, provides feature importance.</p>
+                        <div class="code-snippet">from sklearn.ensemble import RandomForestClassifier</div>
+                    </div>
+                    <div class="technique-card">
+                        <h4>🚀 Boosting</h4>
+                        <p>AdaBoost, Gradient Boosting. Sequential learning where each tree corrects previous errors.</p>
+                        <div class="code-snippet">from sklearn.ensemble import GradientBoostingClassifier</div>
+                    </div>
+                    <div class="technique-card">
+                        <h4>⚡ XGBoost</h4>
+                        <p>Extreme Gradient Boosting. High-performance implementation with regularization and advanced features.</p>
+                        <div class="code-snippet">import xgboost as xgb</div>
+                    </div>
+                </div>
+
+                <div class="key-concepts">
+                    <h3>💡 Main Takeaways</h3>
+                    <ul>
+                        <li><span class="highlight">Single trees</span> are interpretable but unstable and prone to overfitting</li>
+                        <li><span class="highlight">Random forests</span> sacrifice interpretability for improved prediction accuracy</li>
+                        <li>Boosting can achieve very high accuracy but requires careful tuning</li>
+                        <li>Trees handle mixed data types and missing values naturally</li>
+                        <li>Feature importance from trees provides insights into variable relevance</li>
+                    </ul>
+                </div>
+
+                <a href="https://github.com/vnsekambabaye/Data_Mining/blob/main/chapter8_trees.ipynb" class="github-link">
+                    View Chapter 8 Lab Notebook
+                </a>
+            </section>
+
+            <section id="ch9" class="chapter">
+                <h2><span class="chapter-number">9</span>Support Vector Machines <span class="badge">SVM</span></h2>
+                
+                <div class="key-concepts">
+                    <h3>🎯 Key Concepts</h3>
+                    <p><strong>Support Vector Machines</strong> find optimal separating hyperplane that maximizes margin between classes. Can handle non-linear boundaries using kernel trick.</p>
+                </div>
+
+                <div class="techniques">
+                    <div class="technique-card">
+                        <h4>📏 Maximal Margin Classifier</h4>
+                        <p>Finds hyperplane that separates classes with maximum margin. Only works for linearly separable data.</p>
+                    </div>
+                    <div class="technique-card">
+                        <h4>🎯 Support Vector Classifier</h4>
+                        <p>Soft margin approach. Allows some misclassifications to improve generalization. Controlled by cost parameter C.</p>
+                        <div class="code-snippet">from sklearn.svm import SVC</div>
+                    </div>
+                    <div class="technique-card">
+                        <h4>🌊 Support Vector Machine</h4>
+                        <p>Uses kernel trick to create non-linear decision boundaries. Common kernels: polynomial, RBF, sigmoid.</p>
+                        <div class="code-snippet">SVC(kernel='rbf', gamma='scale')</div>
+                    </div>
+                    <div class="technique-card">
+                        <h4>🔄 Kernel Methods</h4>
+                        <p>Polynomial: (γ⟨x,x'⟩ + r)^d, RBF: exp(-γ||x-x'||²). Transform feature space without explicit computation.</p>
+                    </div>
+                    <div class="technique-card">
+                        <h4>📊 SVR</h4>
+                        <p>Support Vector Regression. Extends SVM concepts to regression problems with ε-insensitive loss.</p>
+                        <div class="code-snippet">from sklearn.svm import SVR</div>
+                    </div>
+                </div>
+
+                <div class="key-concepts">
+                    <h3>💡 Main Takeaways</h3>
+                    <ul>
+                        <li><span class="highlight">Margin maximization</span> leads to good generalization properties</li>
+                        <li>Only support vectors (boundary points) matter for the decision function</li>
+                        <li>Kernel trick enables non-linear boundaries without explicit feature mapping</li>
+                        <li>RBF kernel creates flexible, smooth decision boundaries</li>
+                        <li>Hyperparameter tuning (C, γ) is crucial for optimal performance</li>
+                    </ul>
+                </div>
+
+                <a href="https://github.com/vnsekambabaye/Data_Mining/blob/main/chapter9_svm.ipynb" class="github-link">
+                    View Chapter 9 Lab Notebook
+                </a>
+            </section>
+
+            <section id="ch12" class="chapter">
+                <h2><span class="chapter-number">12</span>Unsupervised Learning <span class="badge">Unsupervised</span></h2>
+                
+                <div class="key-concepts">
+                    <h3>🎯 Key Concepts</h3>
+                    <p><strong>Unsupervised Learning</strong> finds hidden patterns in data without labeled responses. Includes dimensionality reduction, clustering, and association rules.</p>
+                </div>
+
+                <div class="techniques">
+                    <div class="technique-card">
+                        <h4>📊 Principal Component Analysis</h4>
+                        <p>Finds directions of maximum variance. Reduces dimensionality while preserving information. First PC explains most variance.</p>
+                        <div class="code-snippet">from sklearn.decomposition import PCA</div>
+                    </div>
+                    <div class="technique-card">
+                        <h4>🎯 K-Means Clustering</h4>
+                        <p>Partitions data into k clusters by minimizing within-cluster sum of squares. Requires choosing k in advance.</p>
+                        <div class="code-snippet">from sklearn.cluster import KMeans</div>
+                    </div>
+                    <div class="technique-card">
+                        <h4>🌳 Hierarchical Clustering</h4>
+                        <p>Creates tree of clusters. Agglomerative (bottom-up) or divisive (top-down). No need to specify k beforehand.</p>
+                        <div class="code-snippet">from sklearn.cluster import AgglomerativeClustering</div>
+                    </div>
+                    <div class="technique-card">
+                        <h4>🔍 DBSCAN</h4>
+                        <p>Density-based clustering. Finds clusters of varying shapes and identifies outliers automatically.</p>
+                        <div class="code-snippet">from sklearn.cluster import DBSCAN</div>
+                    </div>
+                    <div class="technique-card">
+                        <h4>📈 t-SNE</h4>
+                        <p>t-Distributed Stochastic Neighbor Embedding. Non-linear dimensionality reduction for visualization.</p>
+                        <div class="code-snippet">from sklearn.manifold import TSNE</div>
+                    </div>
+                    <div class="technique-card">
+                        <h4>🎨 Factor Analysis</h4>
+                        <p>Models observed variables as linear combinations of latent factors. Similar to PCA but with different assumptions.</p>
+                        <div class="code-snippet">from sklearn.decomposition import FactorAnalysis</div>
+                    </div>
+                </div>
+
+                <div class="key-concepts">
+                    <h3>💡 Main Takeaways</h3>
+                    <ul>
+                        <li><span class="highlight">PCA</span> is optimal for linear dimensionality reduction and data compression</li>
+                        <li><span class="highlight">K-means</span> works well for spherical clusters of similar size</li>
+                        <li>Hierarchical clustering provides interpretable dendrogram structure</li>
+                        <li>Validation is challenging without ground truth labels</li>
+                        <li>Standardization is often crucial for distance-based methods</li>
+                    </ul>
+                </div>
+
+                <a href="https://github.com/vnsekambabaye/Data_Mining/blob/main/chapter12_unsupervised.ipynb" class="github-link">
+                    View Chapter 12 Lab Notebook
+                </a>
+            </section>
+
+            <section id="algorithms" class="algorithms-section">
+                <h2>🧠 Machine Learning Algorithms Summary</h2>
+                <p>Comprehensive categorization of algorithms covered in the course, organized by task type and learning paradigm.</p>
+
+                <div class="algorithms-grid">
+                    <div class="algorithm-category">
+                        <h3>📈 Regression Algorithms</h3>
+                        <ul class="algorithm-list">
+                            <li><strong>Simple Linear Regression</strong><br>
+                                <small>Y = β₀ + β₁X + ε</small></li>
+                            <li><strong>Multiple Linear Regression</strong><br>
+                                <small>Multiple predictors, least squares</small></li>
+                            <li><strong>Polynomial Regression</strong><br>
+                                <small>Non-linear relationships</small></li>
+                            <li><strong>Ridge Regression</strong><br>
+                                <small>L2 regularization, λΣβⱼ²</small></li>
+                            <li><strong>Lasso Regression</strong><br>
+                                <small>L1 regularization, λΣ|βⱼ|</small></li>
+                            <li><strong>Elastic Net</strong><br>
+                                <small>L1 + L2 regularization</small></li>
+                            <li><strong>Principal Components Regression</strong><br>
+                                <small>PCA + linear regression</small></li>
+                            <li><strong>Partial Least Squares</strong><br>
+                                <small>Supervised dimension reduction</small></li>
+                            <li><strong>Decision Tree Regression</strong><br>
+                                <small>Tree-based regression</small></li>
+                            <li><strong>Random Forest Regression</strong><br>
+                                <small>Ensemble of regression trees</small></li>
+                            <li><strong>Gradient Boosting Regression</strong><br>
+                                <small>Sequential tree learning</small></li>
+                            <li><strong>Support Vector Regression (SVR)</strong><br>
+                                <small>SVM for regression tasks</small></li>
+                        </ul>
+                    </div>
+
+                    <div class="algorithm-category">
+                        <h3>🎯 Classification Algorithms</h3>
+                        <ul class="algorithm-list">
+                            <li><strong>Logistic Regression</strong><br>
+                                <small>Linear decision boundary</small></li>
+                            <li><strong>Linear Discriminant Analysis (LDA)</strong><br>
+                                <small>Gaussian with common covariance</small></li>
+                            <li><strong>Quadratic Discriminant Analysis (QDA)</strong><br>
+                                <small>Gaussian with class-specific covariance</small></li>
+                            <li><strong>Naive Bayes</strong><br>
+                                <small>Feature independence assumption</small></li>
+                            <li><strong>K-Nearest Neighbors (KNN)</strong><br>
+                                <small>Non-parametric, instance-based</small></li>
+                            <li><strong>Decision Trees</strong><br>
+                                <small>Recursive binary splitting</small></li>
+                            <li><strong>Random Forest</strong><br>
+                                <small>Ensemble of decision trees</small></li>
+                            <li><strong>Gradient Boosting</strong><br>
+                                <small>AdaBoost, XGBoost</small></li>
+                            <li><strong>Support Vector Machine (SVM)</strong><br>
+                                <small>Margin maximization</small></li>
+                            <li><strong>Kernel SVM</strong><br>
+                                <small>Non-linear boundaries</small></li>
+                            <li><strong>Bagging Classifier</strong><br>
+                                <small>Bootstrap aggregation</small></li>
+                        </ul>
+                    </div>
+
+                    <div class="algorithm-category">
+                        <h3>🔍 Unsupervised Learning</h3>
+                        <ul class="algorithm-list">
+                            <li><strong>Principal Component Analysis (PCA)</strong><br>
+                                <small>Linear dimensionality reduction</small></li>
+                            <li><strong>K-Means Clustering</strong><br>
+                                <small>Centroid-based clustering</small></li>
+                            <li><strong>Hierarchical Clustering</strong><br>
+                                <small>Agglomerative/divisive</small></li>
+                            <li><strong>DBSCAN</strong><br>
+                                <small>Density-based clustering</small></li>
+                            <li><strong>Gaussian Mixture Models</strong><br>
+                                <small>Probabilistic clustering</small></li>
+                            <li><strong>Independent Component Analysis (ICA)</strong><br>
+                                <small>Signal separation</small></li>
+                            <li><strong>t-SNE</strong><br>
+                                <small>Non-linear dimensionality reduction</small></li>
+                            <li><strong>UMAP</strong><br>
+                                <small>Uniform manifold approximation</small></li>
+                            <li><strong>Factor Analysis</strong><br>
+                                <small>Latent factor modeling</small></li>
+                            <li><strong>Spectral Clustering</strong><br>
+                                <small>Graph-based clustering</small></li>
+                            <li><strong>Mean Shift</strong><br>
+                                <small>Mode-seeking algorithm</small></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem; background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 10px;">
+                    <h3>🎓 Algorithm Selection Guidelines</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                        <div>
+                            <h4>📊 For Regression:</h4>
+                            <ul style="list-style: none; padding-left: 0;">
+                                <li>• <strong>Linear Regression:</strong> Simple, interpretable baseline</li>
+                                <li>• <strong>Ridge/Lasso:</strong> High-dimensional data, regularization needed</li>
+                                <li>• <strong>Random Forest:</strong> Non-linear patterns, robust to outliers</li>
+                                <li>• <strong>SVM:</strong> Complex patterns, kernel methods</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>🎯 For Classification:</h4>
+                            <ul style="list-style: none; padding-left: 0;">
+                                <li>• <strong>Logistic Regression:</strong> Linear separable, interpretable</li>
+                                <li>• <strong>Random Forest:</strong> General purpose, handles mixed data</li>
+                                <li>• <strong>SVM:</strong> High-dimensional, complex boundaries</li>
+                                <li>• <strong>Naive Bayes:</strong> Text data, small datasets</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>🔍 For Unsupervised:</h4>
+                            <ul style="list-style: none; padding-left: 0;">
+                                <li>• <strong>PCA:</strong> Dimensionality reduction, visualization</li>
+                                <li>• <strong>K-Means:</strong> Spherical clusters, known k</li>
+                                <li>• <strong>Hierarchical:</strong> Unknown k, interpretable structure</li>
+                                <li>• <strong>DBSCAN:</strong> Arbitrary shapes, outlier detection</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); color: white; padding: 3rem 2rem; border-radius: 15px; margin: 3rem 0;">
+                <h2>🚀 Key Learning Outcomes & Skills Developed</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                    <div>
+                        <h3>📊 Technical Skills</h3>
+                        <ul>
+                            <li>Python programming with scikit-learn, pandas, matplotlib</li>
+                            <li>Statistical modeling and hypothesis testing</li>
+                            <li>Cross-validation and model selection</li>
+                            <li>Feature engineering and preprocessing</li>
+                            <li>Performance evaluation and metrics</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>🧠 Conceptual Understanding</h3>
+                        <ul>
+                            <li>Bias-variance tradeoff principles</li>
+                            <li>Supervised vs. unsupervised learning</li>
+                            <li>Overfitting and regularization techniques</li>
+                            <li>Curse of dimensionality</li>
+                            <li>No free lunch theorem</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>🔧 Practical Applications</h3>
+                        <ul>
+                            <li>Real-world dataset analysis</li>
+                            <li>Algorithm selection for specific problems</li>
+                            <li>Hyperparameter tuning strategies</li>
+                            <li>Model interpretation and visualization</li>
+                            <li>Reproducible research practices</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+            <section style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; padding: 3rem 2rem; border-radius: 15px; margin: 3rem 0;">
+                <h2>📤 Submission Instructions</h2>
+                <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 10px; margin-top: 1rem;">
+                    <h3>📋 What to Submit:</h3>
+                    <ol style="font-size: 1.1rem; line-height: 1.8;">
+                        <li><strong>HTML File:</strong> Download this webpage as an HTML file and submit it to your course platform</li>
+                        <li><strong>GitHub Repository Link:</strong> Provide the URL to your GitHub repository containing all lab notebooks</li>
+                        <li><strong>GitHub Pages Link (Optional but Recommended):</strong> Host this HTML file using GitHub Pages and submit the live website link</li>
+                    </ol>
+                    
+                    <h3 style="margin-top: 2rem;">🚀 How to Set Up GitHub Pages:</h3>
+                    <div style="background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
+                        <code style="font-family: 'Courier New', monospace; color: #f8f9fa;">
+                            1. Create a new repository: "islp-course-summary"<br>
+                            2. Upload this HTML file as "index.html"<br>
+                            3. Go to Settings → Pages<br>
+                            4. Select "Deploy from a branch" → "main"<br>
+                            5. Your site will be live at: https://yourusername.github.io/islp-course-summary/
+                        </code>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">📁 Repository Structure Recommendation:</h3>
+                    <div style="background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
+                        <code style="font-family: 'Courier New', monospace; color: #f8f9fa;">
+                            islp-course-summary/<br>
+                            ├── index.html (this webpage)<br>
+                            ├── README.md<br>
+                            ├── labs/<br>
+                            │   ├── chapter2-statistical-learning.ipynb<br>
+                            │   ├── chapter3-linear-regression.ipynb<br>
+                            │   ├── chapter4-classification.ipynb<br>
+                            │   ├── chapter5-resampling.ipynb<br>
+                            │   ├── chapter6-regularization.ipynb<br>
+                            │   ├── chapter8-trees.ipynb<br>
+                            │   ├── chapter9-svm.ipynb<br>
+                            │   └── chapter12-unsupervised.ipynb<br>
+                            └── data/ (if you have datasets)
+                        </code>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">🔗 Update GitHub Links:</h3>
+                    <p>Before submitting, make sure to update all GitHub notebook links in this HTML file to point to your actual repository. Replace all instances of:</p>
+                    <div style="background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                        <code style="color: #ff6b6b;">https://github.com/yourusername/islp-labs/blob/main/</code>
+                    </div>
+                    <p>With your actual GitHub repository URL:</p>
+                    <div style="background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                        <code style="color: #2ecc71;">https://github.com/YOUR_USERNAME/YOUR_REPO_NAME/blob/main/labs/</code>
+                    </div>
+
+                    <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(255,255,255,0.1); border-radius: 8px; border-left: 4px solid #f39c12;">
+                        <h4>💡 Pro Tips for Submission:</h4>
+                        <ul>
+                            <li>✅ Test all GitHub links to ensure they work</li>
+                            <li>✅ Include a detailed README.md in your repository</li>
+                            <li>✅ Make sure all Jupyter notebooks run without errors</li>
+                            <li>✅ Add comments and documentation to your code</li>
+                            <li>✅ If using GitHub Pages, test the live website before submitting</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section style="background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%); color: white; padding: 2rem; border-radius: 15px; margin: 2rem 0;">
+                <h2>🎯 Submission Checklist</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 1rem;">
+                    <div>
+                        <h3>📄 Files to Submit:</h3>
+                        <ul style="font-size: 1.1rem;">
+                            <li>☐ HTML file (this webpage)</li>
+                            <li>☐ GitHub repository link</li>
+                            <li>☐ GitHub Pages link (optional)</li>
+                            <li>☐ All 8 Jupyter notebook labs</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>✅ Quality Check:</h3>
+                        <ul style="font-size: 1.1rem;">
+                            <li>☐ All GitHub links are updated</li>
+                            <li>☐ All notebooks run successfully</li>
+                            <li>☐ HTML displays correctly</li>
+                            <li>☐ Repository is well-organized</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>🌟 Bonus Points:</h3>
+                        <ul style="font-size: 1.1rem;">
+                            <li>☐ GitHub Pages deployment</li>
+                            <li>☐ Comprehensive README</li>
+                            <li>☐ Clean, documented code</li>
+                            <li>☐ Additional visualizations</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+        <footer class="footer">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <p>&copy; 2024 Statistical Learning Course Summary | An Introduction to Statistical Learning with Python</p>
+                <p>📚 <strong>Authors:</strong> Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani, Jonathan Taylor</p>
+                <p>🎓 Created for educational purposes | Course materials and lab notebooks available on GitHub</p>
+                
+                <div style="margin: 2rem 0; padding: 1.5rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                    <h4 style="margin-bottom: 1rem;">🔗 Important Links:</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <a href="https://www.statlearning.com/" style="color: #3498db; text-decoration: none;">📖 Official Book Website</a>
+                        <a href="https://github.com/intro-stat-learning/ISLP_labs" style="color: #3498db; text-decoration: none;">💻 Official Python Labs</a>
+                        <a href="https://www.edx.org/course/statistical-learning" style="color: #3498db; text-decoration: none;">🎥 Stanford Online Course</a>
+                        <a href="https://hastie.su.domains/ISLP/ISLP_website.pdf" style="color: #3498db; text-decoration: none;">📕 Free PDF Download</a>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                    <p style="font-size: 0.9rem; opacity: 0.8;">
+                        <strong>Note:</strong> Remember to replace all placeholder GitHub links with your actual repository URLs before submission. 
+                        This webpage serves as both a learning summary and a demonstration of web development skills using HTML, CSS, and JavaScript.
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Progress bar functionality
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add animation to technique cards on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'slideInUp 0.6s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all technique cards
+        document.querySelectorAll('.technique-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Add CSS animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize all technique cards as invisible
+        document.querySelectorAll('.technique-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+        });
+    </script>
+</body>
+</html>
